@@ -1,0 +1,6 @@
+Connect the LED:
+Place the LED on the breadboard (or connect it directly to the Arduino pins if you’re not using a breadboard).
+Connect the anode (the longer leg) of the LED to digital pin 13 on the Arduino.
+Connect the cathode (the shorter leg) to one end of a 220-ohm resistor.
+Connect the other end of the resistor to the GND (ground) pin on the Arduino.
+This setup will allow the Arduino to control the LED, making it blink in Morse code.
