@@ -1,0 +1,48 @@
+// Morse Code LED Blinker on Arduino Uno
+const int ledPin = 13;  // Use the built-in LED on pin 13
+const int dotDuration = 250;  // Duration of a dot in milliseconds (adjustable)
+
+// Morse code dictionary for each character
+const char* morseCode[] = {
+  ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", 
+  "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."
+};
+
+void setup() {
+  pinMode(ledPin, OUTPUT);  // Set the LED pin as output
+}
+
+void loop() {
+  const char* message = "HELLO WORLD";  // Message to translate into Morse code
+  translateToMorse(message);
+  delay(7000);  // Wait 7 units (word space) before repeating
+}
+
+void translateToMorse(const char* text) {
+  for (int i = 0; text[i] != '\0'; i++) {
+    char letter = text[i];
+    if (letter == ' ') {
+      delay(dotDuration * 7);  // Space between words
+    } else {
+      int index = letter - 'A';  // Convert ASCII to array index
+      if (index >= 0 && index < 26) {
+        blinkMorse(morseCode[index]);  // Translate and blink the Morse code for the letter
+      }
+      delay(dotDuration * 3);  // Space between letters
+    }
+  }
+}
+
+void blinkMorse(const char* morse) {
+  for (int i = 0; morse[i] != '\0'; i++) {
+    if (morse[i] == '.') {
+      digitalWrite(ledPin, HIGH);  // LED ON for dot
+      delay(dotDuration);
+    } else if (morse[i] == '-') {
+      digitalWrite(ledPin, HIGH);  // LED ON for dash
+      delay(dotDuration * 3);
+    }
+    digitalWrite(ledPin, LOW);  // LED OFF
+    delay(dotDuration);  // Space between parts of the same letter
+  }
+}
